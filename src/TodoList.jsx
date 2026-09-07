@@ -51,7 +51,7 @@ function handleDelete(delet){
 
             <div className='shadow bg-[#fefef0] shadow-cyan-500/50 w-80 p-5 mt-3 rounded-3xl'>
             {list.map((item)=>(
-                    <div className='flex justify-between w-full bg-black text-white border-5 border-[#bebebe] mb-1 rounded-2xl px-2 items-center'>
+                    <div key={item.h} className='flex justify-between w-full bg-black text-white border-5 border-[#bebebe] mb-1 rounded-2xl px-2 items-center'>
 
                         <p >{item.list}</p>
                          <button className='cursor-pointer text-red-600' onClick={()=>handleDelete(item)}>X</button>
