@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ref, set,push,onValue  } from "firebase/database";
+import { ref, set,push,onValue,remove  } from "firebase/database";
 import { db } from '../firebase.config';
 const TodoList = () => {
     const [inputval, setinputval] = useState("")
@@ -25,7 +25,8 @@ const starCountRef = ref(db, 'shoplist/');
 onValue(starCountRef, (snapshot) => {
     let arr=[]
 snapshot.forEach((item)=>{
-   arr.push(item.val())
+    let h=item.key
+   arr.push({...item.val(),h})
 })
 setlist(arr)
 });
@@ -33,6 +34,12 @@ setlist(arr)
 }, [])
 
 
+
+function handleDelete(delet){
+    console.log(delet)
+    remove(ref(db, 'shoplist/'+delet.h))
+
+}
 
     return (
         <center className='mt-5 '>
@@ -47,7 +54,7 @@ setlist(arr)
                     <div className='flex justify-between w-full bg-black text-white border-5 border-[#bebebe] mb-1 rounded-2xl px-2 items-center'>
 
                         <p >{item.list}</p>
-                         <button className='cursor-pointer text-red-600'>X</button>
+                         <button className='cursor-pointer text-red-600' onClick={()=>handleDelete(item)}>X</button>
                     </div>
 
                     ))}
